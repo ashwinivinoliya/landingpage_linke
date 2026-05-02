@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Build Your Authority - Landing Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #003ec7;
+            --text-dark: #191c1e;
+            --text-muted: #565e74;
+            --text-label: #737688;
+            --text-placeholder: #6b7280;
+            --input-bg: #f2f4f6;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 12px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --shadow-md: 0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .lead-capture-section {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-2xl) var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            align-items: center;
+            text-align: center;
+        }
+
+        .heading {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 40px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .subheading {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            color: var(--text-muted);
+            max-width: 420px;
+        }
+
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--spacing-md) - 0.5px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+            color: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-textarea {
+            background: var(--input-bg);
+            border: 1px solid transparent;
+            border-radius: var(--border-radius-sm);
+            padding: 17px 16px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            color: var(--text-dark);
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-placeholder);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            background: white;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 62, 199, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .submit-button {
+            background: var(--primary-blue);
+            border: none;
+            border-radius: var(--border-radius-lg);
+            padding: 20px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            font-family: 'Manrope', sans-serif;
+            margin-top: var(--spacing-xs);
+        }
+
+        .submit-button:hover:not(:disabled) {
+            background: #0029a3;
+            transform: translateY(-2px);
+            box-shadow: 0px 15px 25px -5px rgba(0, 62, 199, 0.3);
+        }
+
+        .submit-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .button-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .trust-badge {
+            display: flex;
+            gap: var(--spacing-xs);
+            align-items: center;
+            justify-content: center;
+            margin-top: var(--spacing-xs);
+        }
+
+        .badge-icon {
+            width: 12px;
+            height: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-text {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            color: var(--text-label);
+            text-align: center;
+        }
+
+        .payment-section {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .payment-heading {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+            text-align: center;
+        }
+
+        .payment-subtext {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .payment-button {
+            background: #10b981;
+            border: none;
+            border-radius: var(--border-radius-lg);
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-family: 'Manrope', sans-serif;
+            box-shadow: 0px 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        .payment-button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0px 15px 25px -5px rgba(16, 185, 129, 0.3);
+        }
+
+        .alert {
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            display: none;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert-success {
+            background: #ecfdf5;
+            border: 1px solid #d1fae5;
+            color: #065f46;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            color: #991b1b;
+        }
+
+        .alert-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .alert-content {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .lead-capture-section {
+                padding: var(--spacing-xl) var(--spacing-sm);
+                gap: var(--spacing-md);
+            }
+
+            .heading {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .subheading {
+                font-size: 14px;
+                max-width: 100%;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .form-input,
+            .form-textarea {
+                padding: 14px 12px;
+                font-size: 16px;
+            }
+
+            .payment-section {
+                margin-top: var(--spacing-md);
+                padding-top: var(--spacing-md);
+            }
+
+            body {
+                padding: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lead-capture-section {
+                padding: var(--spacing-lg) var(--spacing-sm);
+            }
+
+            .heading {
+                font-size: 20px;
+                line-height: 28px;
+            }
+
+            .subheading {
+                font-size: 13px;
+            }
+
+            .form-label {
+                font-size: 12px;
+            }
+
+            .submit-button,
+            .payment-button {
+                padding: 16px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lead-capture-section">
+            <!-- Alert Messages -->
+            <div id="successAlert" class="alert alert-success">
+                <div class="alert-icon">✓</div>
+                <div class="alert-content">
+                    <strong>Success!</strong> Your details have been submitted. I'll get back to you soon!
+                </div>
+            </div>
+
+            <div id="errorAlert" class="alert alert-error">
+                <div class="alert-icon">✕</div>
+                <div class="alert-content" id="errorMessage">
+                    <strong>Error!</strong> Something went wrong. Please try again.
+                </div>
+            </div>
+
+            <!-- Header Section -->
+            <div class="header">
+                <h1 class="heading">Let's Build Your Authority</h1>
+                <p class="subheading">Ready to scale? Fill the form below and I'll get back to you.</p>
+            </div>
+
+            <!-- Form Section -->
+            <form id="leadForm" class="form-wrapper">
+                <!-- Name and Email Row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input
+                            type="text"
+                            class="form-input"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="John Doe"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input
+                            type="email"
+                            class="form-input"
+                            id="email"
+                            name="email"
+                            placeholder="john@company.com"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <!-- Phone Input -->
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input
+                        type="tel"
+                        class="form-input"
+                        id="phone"
+                        name="phone"
+                        placeholder="+91 98765 43210"
+                        required
+                    />
+                </div>
+
+                <!-- LinkedIn URL -->
+                <div class="form-group">
+                    <label class="form-label">LinkedIn Profile URL</label>
+                    <input
+                        type="url"
+                        class="form-input"
+                        id="linkedinUrl"
+                        name="linkedinUrl"
+                        placeholder="linkedin.com/in/username"
+                        required
+                    />
+                </div>
+
+                <!-- Goals Textarea -->
+                <div class="form-group">
+                    <label class="form-label">Tell Me About Your Goals</label>
+                    <textarea
+                        class="form-textarea"
+                        id="goals"
+                        name="goals"
+                        placeholder="What's your main challenge with LinkedIn?"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-button" id="submitBtn">
+                    <span class="button-text">
+                        <span id="buttonText">Send My Message</span>
+                    </span>
+                </button>
+
+                <!-- Trust Badge -->
+                <div class="trust-badge">
+                    <div class="badge-icon">🔒</div>
+                    <div class="badge-text">No spam. I personally reply to every serious inquiry.</div>
+                </div>
+            </form>
+
+            <!-- Payment Section -->
+            <div class="payment-section">
+                <h2 class="payment-heading">₹1 Audit</h2>
+                <p class="payment-subtext">
+                    Get a personalized audit of your LinkedIn profile and content strategy for just ₹1. 
+                    This is a limited-time offer to help you understand your current performance.
+                </p>
+                <a 
+                    href="https://payments.cashfree.com/forms/getaudit" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="payment-button"
+                >
+                    Proceed to ₹1 Audit Payment
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLZjbMhjbC3pys8DrOQs5Qn7CWCxdHZmtjAGr_0wlxNDc8MHA8bcL-8V2SVBgFkHi5/exec";
+
+        const form = document.getElementById("leadForm");
+        const submitBtn = document.getElementById("submitBtn");
+        const buttonText = document.getElementById("buttonText");
+        const successAlert = document.getElementById("successAlert");
+        const errorAlert = document.getElementById("errorAlert");
+        const errorMessage = document.getElementById("errorMessage");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Hide alerts
+            successAlert.classList.remove("show");
+            errorAlert.classList.remove("show");
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            buttonText.innerHTML = '<span class="spinner"></span> Sending...';
+
+            // Collect form data
+            const formData = {
+                fullName: document.getElementById("fullName").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                linkedinUrl: document.getElementById("linkedinUrl").value.trim(),
+                goals: document.getElementById("goals").value.trim()
+            };
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    // Show success message
+                    successAlert.classList.add("show");
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Scroll to alert
+                    successAlert.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        buttonText.textContent = "Send My Message";
+                    }, 3000);
+                } else {
+                    throw new Error(result.message || "Submission failed");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                errorMessage.textContent = `<strong>Error!</strong> ${error.message || "Please try again later."}`;
+                errorAlert.classList.add("show");
+                
+                // Reset button
+                submitBtn.disabled = false;
+                buttonText.textContent = "Send My Message";
+                
+                // Scroll to alert
+                errorAlert.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+
+        // Optional: Clear alerts when user starts typing
+        const inputs = form.querySelectorAll("input, textarea");
+        inputs.forEach(input => {
+            input.addEventListener("focus", () => {
+                successAlert.classList.remove("show");
+                errorAlert.classList.remove("show");
+            });
+        });
+    </script>
+</body>
+</html>
